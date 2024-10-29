@@ -4,79 +4,77 @@
 * @brief Default constructor
 * @note clear cart, set totalPrice to zero
 **/
-User::User() {
-  idOf.clear(); 
-  productOf.clear();
-  infoOf.clear(); 
-  totalPrice = 0;
-  idMax = 0;
+User::User() : myList(LinkedList()) {}
+
+/**
+ * @brief Add a product
+ * @note Asks user to enter information of the product
+ * @note Add new product to linked list
+ */
+void User::addProduct() {
+  std::cout << "Product name: "; 
+  std::string name; 
+  std::cin >> name; 
+
+  std::cout << "Shop: "; 
+  std::string shop; 
+  std::cin >> shop;
+
+  std::cout << "Type: "; 
+  std::string type;
+  std::cin >> type;
+
+  std::cout << "Price: "; 
+  float price;
+  std::cin >> price;
+
+  Product product(name, shop, type, price);
+  myList.addNode(product);
 }
 
 /**
-* @brief Get id of a product
-* @note Return -1 if not exist
-* This func doesn't change attributes
-**/
-int User::getID(const Product& product) const {
-  if (idOf.find(product) != idOf.end()) 
-    return idOf[product];
-  return -1;
+ * @brief Delete a product with an id
+ * @param id id to delete
+ */
+void User::delProduct(const int& id) { myList.deleteNode(id); }
+
+/**
+ * @brief Adjust quantity of a product
+ * @param id id of a product to adjust
+ * @param change +1 or -1 
+ */
+void User::adjustQuantity(const int& id, const int& change) {
+  myList.adjustQuantity(id, change);
 }
 
 /**
-* @brief Get product of corresponding id number
-* @note Return empty product if not exist
-* This func doesn't change attributes
-**/
-Product User::getProduct(const int& id) const {
-  if (productOf.find(id) != productOf.end())
-    return productOf[id]; 
-  Product emp;
-  return emp;
+ * @brief Adjust selection type of a node based on id
+ * @param id id of a node
+ * @param select the new state
+ */
+void User::adjustSelect(const int& id, bool select) {
+  myList.adjustSelect(id, select);
+}
+
+
+/**
+ * @brief Get total price of all products
+ * @note This function doesn't change any attributes
+ */
+double User::getTotalPrice() const {
+  return myList.getTotalPrice();
 }
 
 /**
-* @brief Get quantity of a product
-**/
-int User::getQuantity(const Product& product) const {
-  int id = getID(product); 
-  if (id == -1) return 0; 
-  return infoOf[id].first;
+ * @brief Get total price of only selected product
+ */
+double User::getSelectedPrice() const {
+  return myList.getSelectedPrice();
 }
 
 /**
-* @brief Get quantity of an id
+* @brief Output all products to console
 **/
-int User::getQuantity(const int& id) const {
-  if (infoOf.find(id) == infoOf.end()) return 0;
-  return infoOf[id].first;
+void User::output() const {
+  myList.output();
 }
-
-/**
-* @brief Get selection state of a product
-* @note return false by default if not exist
-**/
-bool User::getState(const Product& product) const {
-  int id = getID(product);
-  if (id == -1) return false; 
-  return infoOf[id].second;
-}
-
-/**
-* @brief Get selection state of an id
-**/
-bool getState(const int& id) const;
-
-/**
-* @brief Add a product to cart
-* @note If product is new, add new id (closet id that does not have product)
-* @note Otherwise, update information for the corresponding id
-* @note Update totalPrice
-**/
-void addProduct(const Product& product);
-
-/**
-* @brief Output all to console
-**/
-void output();
-

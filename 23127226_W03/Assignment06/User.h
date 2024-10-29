@@ -3,27 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
-#include <map>
+#include "LinkedList.h"
 #include "Product.h"
 
 class User {
-private:
-  /**
-  * @brief Store product's id
-  * @note Each product in a specific user's cart has its own id (order) 
-  **/
-  std::map<Product, int> idOf;
-  /**
-  * @brief Trace the product based on id
-  **/ 
-  std::map<int, Product> productOf;
-  /**
-  * @brief Store information of the id (quantities, price, selection state) 
-  **/
-  std::map<int, std::pair<int, bool>> infoOf;
-  int totalPrice; // <-- total price of all current product selected
-  int idMax; // <-- Max number of id
+private:       
+  LinkedList myList;
 public: 
   /**
   * @brief Default constructor
@@ -32,51 +17,46 @@ public:
   User();
   
   /**
-  * @brief Get id of a product
-  * @note Return -1 if not exist
-  * This func doesn't change attributes
-  **/
-  int getID(const Product& product) const;
-  
-  /**
-  * @brief Get product of corresponding id number
-  * @note Return null if not exist
-  * This func doesn't change attributes
-  **/
-  Product getProduct(const int& id) const;
-  
-  /**
-  * @brief Get quantity of a product
-  **/
-  int getQuantity(const Product& product) const;
+   * @brief Add a product
+   * @note Asks user to enter information of the product
+   */
+  void addProduct();
 
   /**
-  * @brief Get quantity of an id
-  **/
-  int getQuantity(const int& id) const;
-  
-  /**
-  * @brief Get selection state of a product
-  **/
-  bool getState(const Product& product) const;
+   * @brief Delete a product with an id
+   * @param id id to delete
+   */
+  void delProduct(const int& id);
 
   /**
-  * @brief Get selection state of an id
-  **/
-  bool getState(const int& id) const;
+   * @brief Adjust quantity of a product
+   * @param id id of a product to adjust
+   * @param change +1 or -1 
+   */
+  void adjustQuantity(const int& id, const int& change);
 
   /**
-  * @brief Add a product to cart
-  * @note If product is new, add new id (closet id that does not have product)
-  * @note Otherwise, update information for the corresponding id
-  * @note Update totalPrice
-  **/
-  void addProduct(const Product& product);
+   * @brief Adjust selection type of a node based on id
+   * @param id id of a node
+   * @param select the new state
+   */
+  void adjustSelect(const int& id, bool select); 
 
   /**
-  * @brief Output all to console
+   * @brief Get total price of all products
+   * @note This function doesn't change any attributes
+   */
+  double getTotalPrice() const;
+
+  /**
+   * @brief Get total price of only selected product
+   */
+  double getSelectedPrice() const;
+
+  /**
+  * @brief Output all products to console
   **/
-  void output();
+  void output() const;
 };
 
 #endif // _USER_H_
