@@ -1,0 +1,107 @@
+Base b1;
+This calls default constructor of Base so output = 
+Base constructor-0 param
+
+Base b2(3);
+This calls first parameterized constructor of Base so output = 
+Base constructor-1 param
+
+Base *pb = new Base(1);
+This still call the first parameterized constructor of Base so output =
+Base constructor-1 param
+
+DerivedA da1;
+This calls default constructor of DerivedA. But DerivedA inherits from Base so it also calls default constructor of Base. Output = 
+Base constructor-0 param
+DerivedA constructor-0 param
+
+DerivedA da2(2);
+This calls the first parameterized constructor of DerivedA. Since there is nothing called to set the variable t of Base class, so the default constructor of Base is called. Output = 
+Base constructor-0 param
+DerivedA constructor-1 param
+
+DerivedA da3(2, 3);
+This calls the second parameterized constructor of DerivedA. Similar to above, no command is called to set variable t of Base class, so default constructor of Base is called. Output = 
+Base constructor-0 param
+DerivedA constructor-2 params
+
+DerivedA da4(da2);
+This calls the copy constructor of DerivedA. But since there is no cout command in copy constructor so there's no output. No command is called to set variable t of Base class, so default constructor of Base is called. Output =
+Base constructor-o param
+
+pb = new DerivedA(4, 5);
+This calls the second parameterized constructor of Derived A. But again, no command is called to set variable t of Base class, so default constructor of Base is called. Output = 
+Base constructor-0 param
+DerivedA constructor-2 params
+
+DerivedB db1;
+This calls the default constructor of DerivedB but there is no defined constructor to define the Base so default constructor is called. Output = 
+Base constructor-0 param
+DerivedB constructor-0 param
+
+DerivedB db2(2.7);
+This calls the first parameterized constructor of DerivedB but since no defined constructor for Base is called. The default constructor for Base is called. 
+Output = 
+Base constructor-0 param
+DerivedB constructor-1 param
+
+DerivedB db3(3, 2.7);
+This calls the second parameterized constructor of DerivedB and first parameterized constructor for Base is called. Output = 
+Base constructor-1 param
+DerivedB constructor-2 params
+
+DerivedB db4(db2);
+This calls copy constructor of DerivedB but also calls the copy constructor of Base class. So output = 
+Base copy constructor 
+DerivedB copy constructor
+
+pb = new DerivedB(4, 5);
+This again calls the second parameterized constructor of DerivedB and also calls the first-parameterized constructor of Base class. So output =
+Base constructor-1 param
+DerivedB constructor-2 params
+
+f(b1);
+Since Base object is passed by value so a copy of Base object is created. So the copy constructor of Base class is called. Then cout in fuction f is printed. But when it goes out of function scope then destructor of Base class is called.Output = 
+Base copy constructor
+Function f
+Base destructor 
+
+f(da1);
+Since Base object is passed by value so a copy of Base object is created. So the copy constructor of Base class is called. Then cout in fuction f is printed. But when it goes out of function scope then destructor of Base class is called.Output = 
+Base copy constructor
+Function f
+Base destructor 
+
+f(db1);
+Since Base object is passed by value so a copy of Base object is created. So the copy constructor of Base class is called. Then cout in fuction f is printed. But when it goes out of function scope then destructor of Base class is called.Output = 
+Base copy constructor
+Function f
+Base destructor 
+
+delete pb;
+This deletes the memory of a pointer pb to a Base object. So it is deleting a Base object and the Base destructor will be called. Output = 
+Base destructor
+
+DerivedB destructor
+Base destructor
+DerivedB destructor
+Base destructor
+DerivedB destructor
+Base destructor
+DerivedB destructor
+Base destructor
+After that, is 4 DerivedB object goes out of scope. Since it inherits from Base, it will first print DerivedB destructor and then Base.
+
+DerivedA destructor
+Base destructor
+DerivedA destructor
+Base destructor
+DerivedA destructor
+Base destructor
+DerivedA destructor
+Base destructor
+Similar to DerivedB, 4 DerivedA object now goes out of scope.
+
+Base destructor
+Base destructor
+Finally, the first two Base object now goes out of scope so the destructor is called.
