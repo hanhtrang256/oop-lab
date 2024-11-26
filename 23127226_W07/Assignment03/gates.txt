@@ -1,0 +1,6 @@
+Type | Gates information (Business: unit price, quantity ~ Academic: IQ level ~ Power: Strength, reduce amount)
+Business | 10.5 | 5
+Academic | 160 
+Academic | 162
+Power | 256 | 25
+Power | 652 | 6
